@@ -24,6 +24,9 @@ import { ResponsiveMenu } from './ResponsiveMenu'
 import { ToolsToggle } from '../../components/controls/ToolsToggle'
 import { CameraSwitchButton } from '../../components/controls/CameraSwitchButton'
 import { useConfig } from '@/api/useConfig'
+import { SelectSpeakerDevice } from '../../components/controls/SelectSpeakerDevice'
+import { SelectMicrophoneDevice } from '../../components/controls/SelectMicrophoneDevice'
+import { SelectCameraDevice } from '../../components/controls/SelectCameraDevice'
 
 export function MobileControlBar({
   onDeviceError,
@@ -62,8 +65,7 @@ export function MobileControlBar({
           })}
         >
           <LeaveButton />
-          <SelectToggleDevice
-            source={Track.Source.Microphone}
+          <SelectMicrophoneDevice
             onChange={microphoneOnChange}
             onDeviceError={(error) =>
               onDeviceError?.({ source: Track.Source.Microphone, error })
@@ -73,8 +75,11 @@ export function MobileControlBar({
             }
             hideMenu={true}
           />
-          <SelectToggleDevice
-            source={Track.Source.Camera}
+          <SelectSpeakerDevice
+            onActiveDeviceChange={() => {}}
+            hideMenu={true}
+          />
+          <SelectCameraDevice
             onChange={cameraOnChange}
             onDeviceError={(error) =>
               onDeviceError?.({ source: Track.Source.Camera, error })

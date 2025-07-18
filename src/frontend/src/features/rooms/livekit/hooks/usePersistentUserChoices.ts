@@ -19,6 +19,9 @@ export function usePersistentUserChoices() {
     saveVideoInputDeviceId: (deviceId: string) => {
       userChoicesStore.videoDeviceId = deviceId
     },
+    saveAudioOutputDeviceId: (deviceId: string) => {
+      userChoicesStore.audioOutputDeviceId = deviceId
+    },
     saveUsername: (username: string) => {
       userChoicesStore.username = username
     },

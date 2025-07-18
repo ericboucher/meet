@@ -9,6 +9,7 @@ import {
 export type LocalUserChoices = LocalUserChoicesLK & {
   processorSerialized?: ProcessorSerialized
   noiseReductionEnabled?: boolean
+  audioOutputDeviceId?: string
 }
 
 function getUserChoicesState(): LocalUserChoices {

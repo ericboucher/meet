@@ -11,6 +11,12 @@ import { OptionsButton } from '../../components/controls/Options/OptionsButton'
 import { StartMediaButton } from '../../components/controls/StartMediaButton'
 import { MoreOptions } from './MoreOptions'
 import { useRef } from 'react'
+import { SelectSpeakerDevice } from '../../components/controls/SelectSpeakerDevice'
+import { SelectMicrophoneDevice } from '../../components/controls/SelectMicrophoneDevice'
+import { SelectCameraDevice } from '../../components/controls/SelectCameraDevice'
+import { useSettingsDialog } from '../../components/controls/SettingsDialogContext'
+import { Button } from '@/primitives/Button'
+import { RiSettings3Line } from '@remixicon/react'
 
 export function DesktopControlBar({
   onDeviceError,
@@ -21,6 +27,7 @@ export function DesktopControlBar({
 }: ControlBarAuxProps) {
   const browserSupportsScreenSharing = supportsScreenSharing()
   const desktopControlBarEl = useRef<HTMLDivElement>(null)
+  const { setDialogOpen } = useSettingsDialog()
   return (
     <div
       ref={desktopControlBarEl}
@@ -43,7 +50,18 @@ export function DesktopControlBar({
           gap: '0.5rem',
           marginLeft: '0.5rem',
         })}
-      />
+      >
+        <Button
+          variant="primaryDark"
+          aria-label="Audio settings"
+          tooltip="Audio settings"
+          onPress={() => setDialogOpen(true)}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+        >
+          <RiSettings3Line size={20} />
+          Audio settings
+        </Button>
+      </div>
       <div
         className={css({
           flex: '1 1 33%',
@@ -53,8 +71,7 @@ export function DesktopControlBar({
           gap: '0.65rem',
         })}
       >
-        <SelectToggleDevice
-          source={Track.Source.Microphone}
+        <SelectMicrophoneDevice
           onChange={microphoneOnChange}
           onDeviceError={(error) =>
             onDeviceError?.({ source: Track.Source.Microphone, error })
@@ -64,8 +81,11 @@ export function DesktopControlBar({
           }
           menuVariant="dark"
         />
-        <SelectToggleDevice
-          source={Track.Source.Camera}
+        <SelectSpeakerDevice
+          onActiveDeviceChange={() => {}}
+          menuVariant="dark"
+        />
+        <SelectCameraDevice
           onChange={cameraOnChange}
           onDeviceError={(error) =>
             onDeviceError?.({ source: Track.Source.Camera, error })
